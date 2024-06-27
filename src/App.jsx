@@ -1,15 +1,22 @@
-import React from 'react';
+import React from "react";
 import Header from "./component/Header";
-import Search from './component/Search';
-import Restaurant from './component/Restaurant';
+import Search from "./component/Search";
+import Restaurant from "./component/Restaurant";
 
 function App() {
+  const [restaurants, setRestaurants] = 
+
   return (
-    <div>
+    <>
+    <div className="container mx-auto">
       <Header />
-      <Search />
-      <Restaurant />
+      <Search 
+      restaurants={restaurants}
+      setFilteredRestaurants = {setFilteredRestaurants}
+      />
+      <Restaurant restaurants={filtedRestaurants} />
     </div>
+    </>
   );
 }
 
