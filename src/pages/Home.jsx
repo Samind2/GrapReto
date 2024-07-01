@@ -1,47 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Search from "./../component/Search";
+import Restaurant from "./../component/Restaurant";
 
 function Home() {
+  const [restaurants, setRestaurants] = useState([]);
+  const [filterRestaurant, setfilterRestaurant] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/restaurants")
+      .then((res) => {
+        return res.json();
+      })
+      .then((response) => {
+        setRestaurants(response);
+        setfilterRestaurant(response);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+  const addRestaurant = (newRestaurant) => {
+    setRestaurants([...restaurants, newRestaurant]);
+    setfilterRestaurant([...restaurants, newRestaurant]);
+  };
+
   return (
-    <div className="navbar bg-base-100">
-      <div className="flex-none">
-        <button className="btn btn-square btn-ghost">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="inline-block h-5 w-5 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
-        </button>
+    <>
+      <div className="container flex flex-col items-center mx-auto space-y-4">
+        <Search
+          restaurants={restaurants}
+          setfilterRestaurant={setfilterRestaurant}
+        />
+        <div className="container flex flex-row flex-wrap items-center justify-center">
+          <Restaurant restaurants={filterRestaurant} />
+        </div>
       </div>
-      <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Add Food</a>
-      </div>
-      <div className="flex-none">
-        <button className="btn btn-square btn-ghost">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="inline-block h-5 w-5 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-            ></path>
-          </svg>
-        </button>
-      </div>
-    </div>
+    </>
   );
 }
-
 export default Home;

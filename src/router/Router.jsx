@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home.jsx";
 import Add from "../pages/Add.jsx";
+import Edit from "../pages/Edit.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -9,6 +10,10 @@ const router = createBrowserRouter([
   {
     path: "/add",
     element: <Add />,
+  },
+  {
+    path: "/Edit/:id",
+    element: <Edit />,
   },
 ]);
 

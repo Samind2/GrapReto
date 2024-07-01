@@ -1,38 +1,35 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const Search = ({ restaurants, setFilteredRestaurants }) => {
   const [keyword, setKeyword] = useState("");
 
-  const handleChange = async (e) => {
-    setKeyword(e.target.value);
-    if (e.target.value === "") {
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setKeyword(value);
+
+    if (value === "") {
       setFilteredRestaurants(restaurants);
       return;
     }
-    const result = restaurants.filter((restaurant) => {
-      return (
-        restaurant.title.toLowerCase().includes(keyword.toLowerCase()) ||
-        restaurant.description.toLowerCase().includes(keyword.toLowerCase())
-      );
-    });
-    console.log(result);
+
+    const result = restaurants.filter((restaurant) =>
+      restaurant.title.toLowerCase().includes(value.toLowerCase())
+    );
+
     setFilteredRestaurants(result);
   };
-};
 
-function Search() {
   return (
-    <div className="p-4">
+    <div className="search-container">
       <input
         type="text"
-        placeholder="Search"
-        className="input input-bordered w-full"
+        placeholder="Search for a restaurant..."
         value={keyword}
         onChange={handleChange}
+        className="search-input"
       />
     </div>
   );
-}
+};
 
 export default Search;

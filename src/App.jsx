@@ -1,23 +1,29 @@
-import React from "react";
-import Header from "./component/Header";
-import Search from "./component/Search";
-import Restaurant from "./component/Restaurant";
+import React, { useState, useEffect } from 'react';
+import Search from './Search';
+import RestaurantList from './RestaurantList';
 
-function App() {
-  const [restaurants, setRestaurants] = 
+const App = () => {
+  const [restaurants, setRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
+  useEffect(() => {
+    // Fetch the restaurant data here
+    fetch('http://localhost:3000/restaurants')
+      .then((response) => response.json())
+      .then((data) => {
+        setRestaurants(data);
+        setFilteredRestaurants(data); // Initialize with all restaurants
+      })
+      .catch((error) => console.error('Error fetching restaurants:', error));
+  }, []);
 
   return (
-    <>
-    <div className="container mx-auto">
-      <Header />
-      <Search 
-      restaurants={restaurants}
-      setFilteredRestaurants = {setFilteredRestaurants}
-      />
-      <Restaurant restaurants={filtedRestaurants} />
+    <div>
+      <h1>Restaurant Search</h1>
+      <Search restaurants={restaurants} setFilteredRestaurants={setFilteredRestaurants} />
+      <RestaurantList restaurants={filteredRestaurants} />
     </div>
-    </>
   );
-}
+};
 
 export default App;

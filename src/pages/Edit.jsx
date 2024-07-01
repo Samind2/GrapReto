@@ -1,31 +1,47 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const Add = () => {
+const Edit = () => {
+  //1.Get ID from query string
+  const { id } = useParams();
   const [restaurant, setRestaurant] = useState({
     title: "",
     description: "",
     img: "",
   });
 
+  //2.Get restaurant by ID
+  useEffect(() => {
+    fetch(`http://localhost:3000/restaurants/${id}`)
+      .then((res) => res.json())
+      .then((response) => {
+        setRestaurant(response);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [id]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRestaurant({ ...restaurant, [name]: value });
   };
 
-  const handSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/restaurants", {
-        method: "POST",
+      const response = await fetch(`http://localhost:3000/restaurants/${id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(restaurant),
       });
+
       if (response.ok) {
-        alert("Restaurant added successfully");
-        setRestaurant({ title: "", description: "", img: "" });
+        alert("Restaurant updated successfully");
+      } else {
+        alert("Failed to update restaurant");
       }
     } catch (error) {
       console.log(error);
@@ -35,9 +51,9 @@ const Add = () => {
   return (
     <div className="container mx-auto p-4">
       <div>
-        <h1 className="text-2xl text-center mb-4">Add Restaurant</h1>
+        <h1 className="text-2xl text-center mb-4">Edit Restaurant</h1>
       </div>
-      <form onSubmit={handSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <label className="input input-bordered flex items-center gap-2">
           Restaurant Name
           <input
@@ -85,11 +101,11 @@ const Add = () => {
           className="btn btn-success bg-green-500 text-white py-2 px-4 rounded mx-auto block"
           type="submit"
         >
-          Add Restaurant
+          Save Changes
         </button>
       </form>
     </div>
   );
 };
 
-export default Add;
+export default Edit;
