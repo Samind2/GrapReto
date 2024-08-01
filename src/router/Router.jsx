@@ -1,21 +1,31 @@
-import { createBrowserRouter } from "react-router-dom";  // นำเข้าฟังก์ชัน createBrowserRouter จากไลบรารี react-router-dom เพื่อสร้างตัวเราเตอร์
-import Home from "../pages/Home.jsx";  // นำเข้า Component Home จากไฟล์ '../pages/Home.jsx' เพื่อนำมากำหนดในเส้นทาง
-import Add from "../pages/Add.jsx";  // นำเข้า Component Add จากไฟล์ '../pages/Add.jsx' เพื่อนำมากำหนดในเส้นทาง
-import Edit from "../pages/Edit.jsx";  // นำเข้า Component Edit จากไฟล์ '../pages/Edit.jsx' เพื่อนำมากำหนดในเส้นทาง
+import { createBrowserRouter } from "react-router-dom";
+import Home from "../pages/Home.jsx";
+import Add from "../pages/Add.jsx";
+import Edit from "../pages/Edit.jsx";
+import Login from "../pages/Login.jsx";
+import Register from "../pages/Register.jsx"; // Import the Register component
 
-const router = createBrowserRouter([  // สร้างตัวเราเตอร์โดยใช้ฟังก์ชัน createBrowserRouter และกำหนดเส้นทางต่าง ๆ ดังนี้
+const router = createBrowserRouter([
   {
-    path: "/",  // เส้นทางหลักของแอปพลิเคชัน
-    element: <Home />,  // เมื่อเข้าถึงเส้นทาง '/' ให้แสดง Component Home
+    path: "/", // Main route of the application
+    element: <Home />, // Displays the Home component for '/'
   },
   {
-    path: "/add",  // เส้นทางสำหรับเพิ่มร้านอาหาร
-    element: <Add />,  // เมื่อเข้าถึงเส้นทาง '/add' ให้แสดง Component Add
+    path: "/add", // Route for adding an item
+    element: <Add />, // Displays the Add component for '/add'
   },
   {
-    path: "/Edit/:id",  // เส้นทางสำหรับแก้ไขร้านอาหารโดยระบุ ID
-    element: <Edit />,  // เมื่อเข้าถึงเส้นทาง '/Edit/:id' ให้แสดง Component Edit
+    path: "/edit/:id", // Route for editing an item by ID
+    element: <Edit />, // Displays the Edit component for '/edit/:id'
+  },
+  {
+    path: "/login", // Route for the login page
+    element: <Login />, // Displays the Login component for '/login'
+  },
+  {
+    path: "/register", // Route for the registration page
+    element: <Register />, // Displays the Register component for '/register'
   },
 ]);
 
-export default router;  // ส่งออกตัวเราเตอร์ที่กำหนดเส้นทางแล้ว
+export default router;
