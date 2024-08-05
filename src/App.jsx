@@ -1,14 +1,15 @@
-import React from 'react';  // นำเข้าไลบรารี React เพื่อใช้ในการสร้าง Component
+import React from 'react';  // Import the React library to use for creating components
 
-import Restaurants from './Restaurants';  // นำเข้า Component Restaurants จากไฟล์ './Restaurants'
+import Restaurants from './Restaurants';  // Import the Restaurants component from the './Restaurants' file
 
-const App = () => {  // ประกาศ Component ชื่อ App โดยใช้ Arrow Function
-  return (  // ส่งคืน JSX เพื่อแสดงผล Component
-    <div>  {/* เริ่มต้นที่ div เพื่อใส่เนื้อหาทั้งหมดของ Component */}
-      <h1>Restaurant Search</h1>  {/* แสดงหัวข้อ h1 ด้วยข้อความ "Restaurant Search" */}
-      <Restaurants />  {/* เรียกใช้ Component Restaurants */}
-    </div>  // ปิด div ที่ห่อหุ้มเนื้อหาของ Component
+const App = () => {  // Declare a component named App using an arrow function
+  return (  // Return JSX to render the component
+    <div>  {/* Start a div to wrap the content of the component */}
+      <h1>Restaurant Search</h1>  {/* Display a heading with the text "Restaurant Search" */}
+      <Restaurants />  {/* Render the Restaurants component */}
+    </div>  // Close the div that wraps the content of the component
   );
 };
 
-export default App;  // ส่งออก Component App เป็น default export ของไฟล์นี้
+export default App;  // Export the App component as the default export of this file
+

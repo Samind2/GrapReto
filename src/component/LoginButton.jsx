@@ -1,7 +1,11 @@
 import React from "react";
 
 function LoginButton() {
-  return <button className="btn btn-outline btn-primary">Login</button>;
+  return (
+    <a href="/login" className="btn btn-outline btn-primary">
+      Login
+    </a>
+  );
 }
 
 export default LoginButton;

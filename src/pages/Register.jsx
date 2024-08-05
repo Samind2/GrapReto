@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function RegisterButton() {
   const [user, setUser] = useState({
@@ -36,11 +38,19 @@ function RegisterButton() {
     setLoading(true);
 
     try {
-      // Replace this with your API call
-      console.log(user);
-      // await api.register(user);
+      const response = await axios.post(
+        "https://your-api-endpoint.com/register",
+        user
+      );
+      Swal.fire("Registration successful", response.data.message, "success");
+      setUser({
+        username: "",
+        email: "",
+        password: "",
+      });
     } catch (error) {
-      console.error("Registration error:", error);
+      const errorMessage = error.response?.data?.message || "An error occurred";
+      Swal.fire("Registration error", errorMessage, "error");
     } finally {
       setLoading(false);
     }
