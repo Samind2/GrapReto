@@ -4,23 +4,23 @@ import TokenService from "./token.service";
 const API_URL = "/api/v1/auth";
 
 const register = async (username, email, password) => {
-  return api.post(API_URL + "/signup", { username, email, password });
+  return api.post(`${API_URL}/signup`, { username, email, password });
 };
 
-const login = async (username, password) => {
-  const response = await api.post(API_URL + "/signin", { username, password });
+const login = async (userName, password) => {
+  const response = await api.post(`${API_URL}/signin`, { userName, password });
   if (response.data.accessToken) {
-    localStorage.setUser("accessToken", JSON.stringify(response.data.accessToken));
-    localStorage.setItem(
-      "user",
-      JSON.stringify(response)
-    );
+    localStorage.setItem("accessToken", response.data.accessToken);
+    // Assuming response.data.user contains user details
+    localStorage.setItem("user", JSON.stringify(response.data.user));
   }
   return response;
 };
 
 const logout = () => {
-  TokenService.removeUser();
+  // Clear local storage or use TokenService to manage token removal
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("user");
 };
 
 const AuthService = {

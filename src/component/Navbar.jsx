@@ -2,9 +2,11 @@ import React from "react";
 import UserProfile from "./UserProfile";
 import LoginButton from "./LoginButton";
 import RegisterButton from "./RegisterButton";
+import { useAuthContext } from "../context/AuthContext";
 
-function Navbar() {
-  const user = null;
+const Navbar = () => {
+  const { user } = useAuthContext(); 
+  
   return (
     <div className="navbar bg-base-100">
       <div className="flex-none">
@@ -27,7 +29,20 @@ function Navbar() {
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">Grab Restaurant</a>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end space-x-2">
+        {user && (
+          <div>
+            Welcome,{""}
+            <span className="text-red-500">
+              {user.name}{""}
+              {user.roles.map((role) => {
+                return (
+                  <div className={"badge text-xs badge-accent"}>{role}</div>
+                )
+              })}
+            </span>
+          </div>
+        )}
         {user ? (
           <UserProfile />
         ) : (

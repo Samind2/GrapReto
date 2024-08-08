@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 function Login() {
   const [user, setUser] = useState({
-    username: "",
+    userName: "", // Updated to match backend expectation
     password: "",
   });
 
@@ -21,28 +21,31 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const currentUser = await AuthService.login(user.username, user.password);
-      login(currentUser);
-      setUser({
-        username: "",
-        password: "",
-      });
-      Swal.fire({
-        icon: "success",
-        title: "Login successful!",
-        text: "You will be redirected to the homepage.",
-        timer: 2000,
-        showConfirmButton: false,
-      });
-      navigate("/");
+      const currentUser = await AuthService.login(user.userName, user.password); // Ensure userName matches here
+      console.log(currentUser); // Useful for debugging
+      if (currentUser.status === 200) {
+        login(currentUser.data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Login successful!',
+          text: 'You will be redirected to the homepage.',
+        });
+        setUser({
+          userName: '',
+          password: '',
+        });
+        navigate('/');
+      }
     } catch (error) {
+      console.error('Login error:', error); // Added for debugging
       Swal.fire({
-        icon: "error",
-        title: "Login failed!",
-        text: "Please check your credentials and try again.",
+        icon: 'error',
+        title: 'Login failed!',
+        text: 'Please check your credentials and try again.',
       });
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-teal-500">
@@ -51,16 +54,16 @@ function Login() {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
-              htmlFor="username"
+              htmlFor="userName" // Updated to match backend expectation
               className="block text-sm font-medium text-gray-700"
             >
               Username
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={user.username}
+              id="userName" // Updated to match backend expectation
+              name="userName" // Updated to match backend expectation
+              value={user.userName} // Updated to match backend expectation
               onChange={handleChange}
               className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300"
             />

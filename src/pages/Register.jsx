@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 function RegisterButton() {
   const [user, setUser] = useState({
-    username: "",
+    userName: "", // Changed from username to userName
     email: "",
     password: "",
   });
@@ -14,7 +14,7 @@ function RegisterButton() {
 
   const validate = () => {
     const newErrors = {};
-    if (!user.username) newErrors.username = "Username is required";
+    if (!user.userName) newErrors.userName = "Username is required"; // Changed from username to userName
     if (!user.email) newErrors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(user.email))
       newErrors.email = "Email is invalid";
@@ -39,12 +39,12 @@ function RegisterButton() {
 
     try {
       const response = await axios.post(
-        "https://your-api-endpoint.com/register",
+        "http://localhost:5000/api/v1/auth/signup", // Ensure this matches your server route
         user
       );
       Swal.fire("Registration successful", response.data.message, "success");
       setUser({
-        username: "",
+        userName: "", // Changed from username to userName
         email: "",
         password: "",
       });
@@ -63,21 +63,21 @@ function RegisterButton() {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
-              htmlFor="username"
+              htmlFor="userName" // Changed from username to userName
               className="block text-sm font-medium text-gray-700"
             >
               Username
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={user.username}
+              id="userName" // Changed from username to userName
+              name="userName" // Changed from username to userName
+              value={user.userName} // Changed from username to userName
               onChange={handleChange}
               className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300"
             />
-            {errors.username && (
-              <p className="text-red-600 text-sm">{errors.username}</p>
+            {errors.userName && ( // Changed from username to userName
+              <p className="text-red-600 text-sm">{errors.userName}</p> // Changed from username to userName
             )}
           </div>
           <div>
