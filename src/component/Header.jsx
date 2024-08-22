@@ -1,10 +1,14 @@
-import React from 'react';
+import React from "react";
 
 function Header() {
   return (
-    <header className="p-4 shadow-md">
-      <h1 className="text-2xl font-bold text-center">Grab Restaurant</h1>
-    </header>
+    <div className="container flex flex-col items-center mx-auto space-y-4 mb-5">
+      <div className="font-bold text-4xl text-center mt-5">
+        <a href="http://localhost:5173/">
+          <span className="text-green-700">Grab</span> Restaurant
+        </a>
+      </div>
+    </div>
   );
 }
 

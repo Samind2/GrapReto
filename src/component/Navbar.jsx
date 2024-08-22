@@ -3,6 +3,7 @@ import UserProfile from "./UserProfile";
 import LoginButton from "./LoginButton";
 import RegisterButton from "./RegisterButton";
 import { useAuthContext } from "../context/AuthContext";
+import Header from "./Header"
 
 const Navbar = () => {
   const { user } = useAuthContext();

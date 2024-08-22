@@ -7,7 +7,7 @@ const Restaurants = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/restaurant")
+    fetch("http://localhost:5000/api/v1/restaurants")
       .then(res => {
         if (!res.ok) {
           throw new Error('Network response was not ok');
@@ -21,7 +21,8 @@ const Restaurants = () => {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []); // Array ว่างหมายความว่า useEffect นี้จะทำงานเพียงครั้งเดียวตอน component mount
+  }, []);
+   // Array ว่างหมายความว่า useEffect นี้จะทำงานเพียงครั้งเดียวตอน component mount
 
   return (
     <div className="flex flex-col items-center">
