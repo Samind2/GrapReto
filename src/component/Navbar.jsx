@@ -5,8 +5,8 @@ import RegisterButton from "./RegisterButton";
 import { useAuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
-  const { user } = useAuthContext(); 
-  
+  const { user } = useAuthContext();
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-none">
@@ -35,11 +35,9 @@ const Navbar = () => {
             Welcome,{""}
             <span className="text-red-500">
               {user.name}{""}
-              {user.roles.map((role) => {
-                return (
-                  <div className={"badge text-xs badge-accent"}>{role}</div>
-                )
-              })}
+              {user.roles.map((role, index) => (
+                <div key={index} className={"badge text-xs badge-accent"}>{role}</div>
+              ))}
             </span>
           </div>
         )}

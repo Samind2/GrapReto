@@ -3,6 +3,7 @@ import TokenService from "./token.service";
 
 const API_URL = "/api/v1/auth";
 
+
 const register = async (username, email, password) => {
   return api.post(`${API_URL}/signup`, { username, email, password });
 };

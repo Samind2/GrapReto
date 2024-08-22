@@ -10,16 +10,20 @@ function Home() {
   // ใช้ useEffect เพื่อดึงข้อมูลร้านอาหารจากเซิร์ฟเวอร์เมื่อ component โหลดเสร็จ
   useEffect(() => {
     fetch("http://localhost:5000/restaurants")
-      .then((res) => {
-        return res.json(); // แปลง response เป็น JSON
-      })
-      .then((response) => {
-        setRestaurants(response); // อัปเดต state ของรายการร้านอาหารทั้งหมด
-        setfilterRestaurant(response); // อัปเดต state ของรายการร้านอาหารที่ถูกกรอง
-      })
-      .catch((err) => {
-        console.log(err.message); // แสดง error ใน console กรณีที่เกิดข้อผิดพลาดในการเรียก API
-      });
+    .then(res => {
+      console.log(res); // Log the response object
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return res.json();
+    })
+    .then(data => {
+      setRestaurants(data);
+      setfilterRestaurant(data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
   }, []); // กำหนดว่า useEffect จะทำงานเฉพาะครั้งแรกเมื่อ component โหลดเสร็จ
 
   // ฟังก์ชัน addRestaurant ใช้สำหรับเพิ่มร้านอาหารใหม่เข้าไปในรายการ

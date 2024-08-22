@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react"; // นำเข้า useEffect และ useState จาก React
-import Search from "./Search"; // นำเข้า component Search
-import Card from "./Card"; // นำเข้า component Card
+import React, { useEffect, useState } from "react";
+import Search from "./Search";
+import Card from "./Card";
 
 const Restaurants = () => {
-  // สร้าง state สำหรับเก็บข้อมูล restaurants และ filteredRestaurants
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
-  // useEffect จะทำงานเมื่อ component ถูก mount
   useEffect(() => {
-    // Fetch ข้อมูลจาก API
-    fetch("http://localhost:5000/restaurants")
-      .then((res) => res.json()) // แปลง response เป็น JSON
-      .then((response) => {
-        // อัพเดท state restaurants และ filteredRestaurants ด้วยข้อมูลที่ได้จาก API
-        setRestaurants(response);
-        setFilteredRestaurants(response); // ตั้งค่าเริ่มต้นให้ filteredRestaurants มีค่าเท่ากับ restaurants ทั้งหมด
+    fetch("http://localhost:5000/restaurant")
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
       })
-      .catch((err) => {
-        // ถ้ามี error ในการ fetch ข้อมูล จะทำการ log error นั้น
-        console.log(err.message);
+      .then(data => {
+        setRestaurants(data);
+        setFilteredRestaurants(data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
       });
   }, []); // Array ว่างหมายความว่า useEffect นี้จะทำงานเพียงครั้งเดียวตอน component mount
 
@@ -34,6 +34,7 @@ const Restaurants = () => {
         {/* map ข้อมูล filteredRestaurants แล้วแสดงผลผ่าน component Card */}
         {filteredRestaurants.map((restaurant) => (
           <Card
+          id={restaurant.id}
             key={restaurant.id} // กำหนด key ให้กับแต่ละ Card
             img={restaurant.img} // ส่ง img ไปเป็น prop ให้กับ Card
             title={restaurant.title} // ส่ง title ไปเป็น prop ให้กับ Card
