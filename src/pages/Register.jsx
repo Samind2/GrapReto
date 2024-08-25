@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 function RegisterButton() {
   const [user, setUser] = useState({
-    userName: "", // Changed from username to userName
+    userName: "",
     email: "",
     password: "",
   });
@@ -14,7 +14,7 @@ function RegisterButton() {
 
   const validate = () => {
     const newErrors = {};
-    if (!user.userName) newErrors.userName = "Username is required"; // Changed from username to userName
+    if (!user.userName) newErrors.userName = "Username is required";
     if (!user.email) newErrors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(user.email))
       newErrors.email = "Email is invalid";
@@ -39,12 +39,12 @@ function RegisterButton() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/auth/signup", // Ensure this matches your server route
+        "http://localhost:5000/api/v1/auth/signup",
         user
       );
       Swal.fire("Registration successful", response.data.message, "success");
       setUser({
-        userName: "", // Changed from username to userName
+        userName: "",
         email: "",
         password: "",
       });
@@ -57,33 +57,51 @@ function RegisterButton() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded shadow-lg">
-        <h2 className="text-2xl font-bold text-center">Register</h2>
+    <div
+      className="flex items-center justify-center min-h-screen"
+      style={{ backgroundColor: "#C9DABF" }}
+    >
+      <div
+        className="w-full max-w-md p-10 space-y-8 rounded-lg shadow-xl"
+        style={{ backgroundColor: "#9CA986" }}
+      >
+        <h2 className="text-3xl font-bold text-center" style={{ color: "#5F6F65" }}>
+          Create an Account
+        </h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
-              htmlFor="userName" // Changed from username to userName
-              className="block text-sm font-medium text-gray-700"
+              htmlFor="userName"
+              className="block text-sm font-medium"
+              style={{ color: "#5F6F65" }}
             >
               Username
             </label>
             <input
               type="text"
-              id="userName" // Changed from username to userName
-              name="userName" // Changed from username to userName
-              value={user.userName} // Changed from username to userName
+              id="userName"
+              name="userName"
+              value={user.userName}
               onChange={handleChange}
-              className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300"
+              className="block w-full px-4 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              style={{
+                borderColor: "#808D7C",
+                backgroundColor: "#C9DABF",
+                color: "#5F6F65",
+              }}
+              placeholder="Enter your username"
             />
-            {errors.userName && ( // Changed from username to userName
-              <p className="text-red-600 text-sm">{errors.userName}</p> // Changed from username to userName
+            {errors.userName && (
+              <p className="mt-2 text-sm" style={{ color: "#FF0000" }}>
+                {errors.userName}
+              </p>
             )}
           </div>
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium"
+              style={{ color: "#5F6F65" }}
             >
               Email
             </label>
@@ -93,16 +111,25 @@ function RegisterButton() {
               name="email"
               value={user.email}
               onChange={handleChange}
-              className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300"
+              className="block w-full px-4 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              style={{
+                borderColor: "#808D7C",
+                backgroundColor: "#C9DABF",
+                color: "#5F6F65",
+              }}
+              placeholder="Enter your email"
             />
             {errors.email && (
-              <p className="text-red-600 text-sm">{errors.email}</p>
+              <p className="mt-2 text-sm" style={{ color: "#FF0000" }}>
+                {errors.email}
+              </p>
             )}
           </div>
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium"
+              style={{ color: "#5F6F65" }}
             >
               Password
             </label>
@@ -112,16 +139,28 @@ function RegisterButton() {
               name="password"
               value={user.password}
               onChange={handleChange}
-              className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300"
+              className="block w-full px-4 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              style={{
+                borderColor: "#808D7C",
+                backgroundColor: "#C9DABF",
+                color: "#5F6F65",
+              }}
+              placeholder="Enter your password"
             />
             {errors.password && (
-              <p className="text-red-600 text-sm">{errors.password}</p>
+              <p className="mt-2 text-sm" style={{ color: "#FF0000" }}>
+                {errors.password}
+              </p>
             )}
           </div>
           <div>
             <button
               type="submit"
-              className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="flex justify-center w-full px-4 py-2 text-sm font-medium rounded-md shadow-sm"
+              style={{
+                backgroundColor: "#808D7C",
+                color: "#C9DABF",
+              }}
               disabled={loading}
             >
               {loading ? "Registering..." : "Register"}

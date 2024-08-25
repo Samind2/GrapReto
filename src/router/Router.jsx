@@ -6,6 +6,7 @@ import Login from "../pages/Login.jsx";
 import Register from "../pages/Register.jsx"; // Import the Register component
 import Layout from "../component/Layout.jsx";
 import ProtectedRoute from "../pages/ProtectedRoute.jsx";
+import NoWorkResult from "postcss/lib/no-work-result";
 import NotAllowed from "../pages/NotAllowed.jsx";
 
 const router = createBrowserRouter([
@@ -39,7 +40,13 @@ const router = createBrowserRouter([
       },
       {
         path: "notallowed", // Route for the registration page
-        element: <notallowed />, // Displays the Register component for '/register'
+        element: <NotAllowed/>,
+    children:[
+      {
+        path:"user",
+        element:<div>user</div>
+      }
+     ] // Displays the Register component for '/register'
       },
     ],
   },
